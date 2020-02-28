@@ -53,13 +53,14 @@ class SimpleListTest {
 	// Adds 4 6 7 10 to the list, so now the list has 4 counts
 	// Then removes 7 and 4, so now the list has 2 counts
 	// Uses assertequals to compare 2 with the count variable. 
+	
 	@Test
 	void testCount()
 	{
 		mylist.add(4);
 		mylist.add(6);
 		mylist.add(7);
-		mylist.add(10);
+		mylist.add(10); // 10 7 6 4
 		mylist.remove(7);
 		mylist.remove(4);
 		// add 4 remove 2 so count is 2
@@ -109,4 +110,48 @@ class SimpleListTest {
 		assertEquals(2, mylist.search(6));
 		assertEquals(-1, mylist.search(5));
 	}
+	
+	// This test method tests the Append() method of the SimpleList
+	// Add 4, then 6, then 7, then 10 to the list
+	// List is now 10 7 6 4, so append 5 would make the list 10 7 6 4 5  
+	// Uses assertequals to compare the last element with 5
+	@Test
+	void testAppend()
+	{
+		mylist.add(4);
+		mylist.add(6);
+		mylist.add(7);
+		mylist.add(10);
+		mylist.append(5);
+		// List is 10 7 6 4 5
+		int[] myListArray = mylist.getList();
+		assertEquals(5, myListArray[4]);
+	}
+	
+	// This test method add 4 elements to a 10-element array
+	// remove 1 so that the size is now 3
+	// use assertequals to compare the list size with 3
+	@Test
+	void testSize()
+	{
+		mylist.add(4);
+		mylist.add(6);
+		mylist.add(7);
+		mylist.add(10);
+		mylist.remove(4);
+		assertEquals(3, mylist.size());
+	}
+	
+	// this test method add 4 elements 4 then 6 then 7 then 10 to a 10 element array
+	// the first element is 10
+	@Test
+	void testGetFirstElement()
+	{
+		mylist.add(4);
+		mylist.add(6);
+		mylist.add(7);
+		mylist.add(10);
+		assertEquals(10, mylist.first());
+	}
+	
 }
