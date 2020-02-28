@@ -98,18 +98,27 @@ public class SimpleList
 			System.out.println("No such number in list");
 		else
 		{
-			int[] newList = new int[this.size];
-			for (int indexLoop2 = 0; indexLoop2 < indexToRemove; indexLoop2++)
-				newList[indexLoop2] = this.list[indexLoop2];
-			for (int indexLoop2 = indexToRemove + 1; indexLoop2 < this.count; indexLoop2++)
-				newList[indexLoop2 - 1] = this.list[indexLoop2];
-			this.list = newList;
 			this.count--;
+			int emptySpaceNum = this.size - this.count;
+			if (emptySpaceNum*100/this.size > 25)
+				this.size = this.count;
+			
+			int[] newList = new int[this.count];
+			if (indexToRemove == this.count)
+			{
+				for (int indexLoop2 = 0; indexLoop2 < this.count; indexLoop2++)
+					newList[indexLoop2] = this.list[indexLoop2];
+			}
+			else
+			{
+				for (int indexLoop2 = 0; indexLoop2 < indexToRemove; indexLoop2++)
+					newList[indexLoop2] = this.list[indexLoop2];
+				for (int indexLoop2 = indexToRemove + 1; indexLoop2 < this.count + 1; indexLoop2++)
+					newList[indexLoop2 - 1] = this.list[indexLoop2];
+			}
+			
+			this.list = newList;
 		}
-
-		int emptySpaceNum = this.size - this.count;
-		if (emptySpaceNum*100/this.size > 25)
-			this.size = this.count;
 		
 	}
 	
@@ -173,8 +182,13 @@ public class SimpleList
 	{
 		int indexToSearch = -1;
 		for (int indexLoop = 0; indexLoop < this.count; indexLoop++)
-			if (list[indexLoop] == numToSearch && indexToSearch <= indexLoop)
+		{
+			if (list[indexLoop] == numToSearch)
+			{
 				indexToSearch = indexLoop;
+				indexLoop = this.count;
+			}
+		}
 		return indexToSearch;
 	}
 	
